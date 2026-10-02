@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的古籍 OCR 评测站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">古籍OCR评测对比</div>
+        <div class="nav-links"><button onclick="switchTab('paper')" id="btn-paper">简要介绍</button>
+            <button onclick="switchTab('test')" id="btn-test" class="active">评测结果</button>
+            <button onclick="switchTab('about')" id="btn-about">总结</button>
+            <div style="margin-left: auto;">联系邮箱:w819709847@163.com</div>
+        </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="test-section" class="tab-content">
+            <aside class="sidebar">
+                <h3>样本列表</h3>
+                <div id="thumb-list"></div>
+            </aside>
+            <div class="main-display">
+                <!-- 新增：中间大图展示区 -->
+<div class="center-stage">
+    <div class="main-img-container">
+        <img id="active-img" src="" alt="选中样本">
+        <p class="img-name-label" id="current-file-name"></p>
+    </div>
+</div>
+                <div id="dynamic-cards" class="cards-grid"></div>
+            </div>
+        </section>
+<section id="paper-section" class="tab-content" style="display:none;">
+     <div class="pdf-container">
+        <img class="paper-page" src="paper/历史文献材料数字化识别问题1.png" loading="lazy" alt="第1页">
+        <img class="paper-page" src="paper/历史文献材料数字化识别问题2.png" loading="lazy" alt="第2页">
+        <img class="paper-page" src="paper/历史文献材料数字化识别问题3.png" loading="lazy" alt="第3页">
+        <img class="paper-page" src="paper/历史文献材料数字化识别问题4.png" loading="lazy" alt="第4页">
+    </div>
+</section>
+        <section id="about-section" class="tab-content" style="display:none;">
+    <div class="pdf-container">
+        <img class="paper-page" src="paper/总结1.jpg" loading="lazy" alt="第1页">
+        <img class="paper-page" src="paper/总结2.jpg" loading="lazy" alt="第2页">
+        <img class="paper-page" src="paper/总结3.jpg" loading="lazy" alt="第3页">
+        <img class="paper-page" src="paper/总结4.jpg" loading="lazy" alt="第3页">    
+        </div>   
+        </section>
+    </main>
+    <!-- 弹窗：默认隐藏，JS 控制显示 -->
+<div id="detail-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+    <span id="modal-title">详情</span>
+    <span>
+        <button onclick="resetImage()" style="margin-right:15px;">图片复位</button>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+    </span>
+    </div>
+        <div class="modal-body">
+    <div class="modal-left">
+        <img id="modal-img" src="" draggable="false">
+    </div>
+    <div class="modal-right">
+        <pre id="modal-text"></pre>
+        <div class="modal-review">
+            <strong>点评：</strong><span id="modal-review"></span>
+        </div>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
