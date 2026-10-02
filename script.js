@@ -608,3 +608,43 @@ async function renderPDFPage(num, container) {
         viewport: viewport
     }).promise;
 }
+// ===== 手机触摸：单指拖拽 + 双指缩放 =====
+const touchArea = document.querySelector('.modal-left');
+let touchStartDist = 0;
+
+function getTouchDist(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.hypot(dx, dy);   // 勾股定理：两指间距离
+}
+
+touchArea.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+        // 单指：和鼠标拖拽同一套数学
+        isDragging = true;
+        dragStartX = e.touches[0].clientX - imgX;
+        dragStartY = e.touches[0].clientY - imgY;
+    } else if (e.touches.length === 2) {
+        isDragging = false;               // 双指时不拖拽
+        touchStartDist = getTouchDist(e.touches);   // 记下初始指距
+    }
+});
+
+touchArea.addEventListener('touchmove', function(e) {
+    e.preventDefault();   // 阻止浏览器把手势抢走（去滚动/缩放整个页面）
+    if (e.touches.length === 1 && isDragging) {
+        imgX = e.touches[0].clientX - dragStartX;
+        imgY = e.touches[0].clientY - dragStartY;
+        updateImgTransform();
+    } else if (e.touches.length === 2) {
+        const newDist = getTouchDist(e.touches);
+        // 缩放倍数 = 新指距 / 旧指距；每动一下就刷新基准，实现连续缩放
+        imgScale = Math.min(Math.max(0.2, imgScale * (newDist / touchStartDist)), 5);
+        touchStartDist = newDist;
+        updateImgTransform();
+    }
+}, { passive: false });   // 老朋友了：不加这个 preventDefault 无效
+
+touchArea.addEventListener('touchend', function() {
+    isDragging = false;
+});
