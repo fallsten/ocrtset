@@ -294,3 +294,45 @@ body {
     gap: 24px;
     padding-bottom: 30px;
 }
+@media (max-width: 768px) {
+    /* 屏幕宽度 ≤768px 时，这里的规则会覆盖上面的同名规则 */
+    .cards-grid { grid-template-columns: 1fr; }
+}
+/* ===== 手机端适配 ===== */
+@media (max-width: 768px) {
+    /* 导航栏瘦身 */
+    .navbar { padding: 10px 12px; gap: 10px; }
+    .logo { font-size: 1rem; }
+    .nav-links button { padding: 6px 12px; font-size: 13px; }
+
+    /* 评测区：不再分左右，改上下流式 */
+    #test-section { flex-direction: column; height: auto; }
+
+    /* 侧栏 → 顶部横向缩略图带（点击逻辑零改动！） */
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+    }
+    .sidebar h3 { display: none; }
+    #thumb-list { display: flex; gap: 10px; overflow-x: auto; }
+    .thumb-item { flex: 0 0 85px; margin-bottom: 0; padding: 6px; }
+    .thumb-item img { height: 75px; }
+
+    .main-display { padding: 15px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .center-stage { padding: 15px 0; margin-bottom: 15px; }
+    #active-img { max-height: 220px; }
+
+    /* 弹窗：左右两栏 → 上下堆叠 */
+    .modal-content { width: 95%; max-height: 95vh; margin: 2.5vh auto; }
+    .modal-body { flex-direction: column; }
+    .modal-left { flex: none; min-height: 260px; }
+    #modal-img { max-height: 32vh; }
+    .modal-right { flex: 1; min-height: 0; }
+
+    /* 论文阅读区 */
+    #paper-section { height: auto; padding: 15px; }
+    .paper-page { max-width: 100%; }
+}
